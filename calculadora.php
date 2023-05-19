@@ -16,6 +16,39 @@ if(isset($_POST['btnSub'])){
     $resultado = $numero1 - $numero2;
     $operacion = 'resta';
 }
+$switchDemo = 'A';
+switch($switchDemo){
+    case 'Z':
+        error_log('Z Value');
+        break;
+}
+
+$arrColores = array('azul','verde','rojo','amarillo');
+
+error_log($arrColores[0]);
+
+$arrAssocPersona = array(
+    'nombre' => 'Ricardo',
+    'apellido' => 'Pineda'
+    'edad' => 17,
+    'activo' => true
+);
+
+error_log(sprintf("%s - %s", $arrAssocPersona['nombre'],$arrAssocPersona['apellido']));
+
+$tablPersonas = array();
+$tablPersonas[] = $arrAssocPersona;
+$tablPersonas[] = $arrAssocPersona;
+
+//NO USAR ESTO;
+for($i = 0, $i < count($tablPersonas); $i++){
+    error_log($tablPersonas[i]);
+}
+
+//MEJOR USAR foreach
+foreach($tablPersonas as $persona){
+    error_log($persona['nombre']);
+}
 ?>
 
 <!DOCTYPE html>
