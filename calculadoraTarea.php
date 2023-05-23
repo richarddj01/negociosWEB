@@ -16,38 +16,31 @@ if(isset($_POST['btnSub'])){
     $resultado = $numero1 - $numero2;
     $operacion = 'resta';
 }
-$switchDemo = 'A';
-switch($switchDemo){
-    case 'Z':
-        error_log('Z Value');
-        break;
+if(isset($_POST['btnMult'])){
+    $numero1 = floatval($_POST["txtNumero1"]);
+    $numero2 = floatval($_POST["txtNumero2"]);
+    $resultado = $numero1 * $numero2;
+    $operacion = 'multi';
 }
-
-$arrColores = array('azul','verde','rojo','amarillo');
-
-error_log($arrColores[0]);
-
-$arrAssocPersona = array(
-    'nombre' => 'Ricardo',
-    'apellido' => 'Pineda',
-    'edad' => 17,
-    'activo' => true
-);
-
-error_log(sprintf("%s - %s", $arrAssocPersona['nombre'],$arrAssocPersona['apellido']));
-
-$tablPersonas = array();
-$tablPersonas[] = $arrAssocPersona;
-$tablPersonas[] = $arrAssocPersona;
-
-//NO USAR ESTO;
-for($i = 0, $i < count($tablPersonas); $i++;){
-    error_log($tablPersonas[i]);
+if(isset($_POST['btnDiv'])){
+    $numero1 = floatval($_POST["txtNumero1"]);
+    $numero2 = floatval($_POST["txtNumero2"]);
+    $resultado = $numero1 / $numero2;
+    $operacion = 'division';
 }
-
-//MEJOR USAR foreach
-foreach($tablPersonas as $persona){
-    error_log($persona['nombre']);
+if(isset($_POST['btnFact'])){ //Falta este
+    $numero1 = floatval($_POST["txtNumero1"]);
+    $numero2 = floatval($_POST["txtNumero2"]);
+    $resultado = $numero1 + $numero2;
+    $resultado = factorial($resultado);
+    $operacion = 'factorial';
+}
+function factorial($resSuma) {
+    if ($resSuma != 0) {
+        return $resSuma * factorial($resSuma - 1);
+    } else {
+        return 1;
+    }
 }
 ?>
 
@@ -61,7 +54,7 @@ foreach($tablPersonas as $persona){
 </head>
 <body>
     <h1>Calculadora</h1>
-    <form action="calculadora.php" method="post">
+    <form action="calculadoraTarea.php" method="post">
         <label for="txtNumero1">Número 1</label>
         <input type="number" name="txtNumero1" id="txtNumero1" value="<?php echo $numero1;?>">
         <br>
@@ -70,9 +63,13 @@ foreach($tablPersonas as $persona){
         <br>
         <button type="submit" name="btnAdd">Sumar</button>
         <button type="submit" name="btnSub">Restar</button>
+        <button type="submit" name="btnMult">Multiplicar</button>
+        <button type="submit" name="btnDiv">Dividir</button>
+        <button type="submit" name="btnFact">Factorial de la Suma</button>
     </form>
     <?php if ($resultado >0) {  //Aquí se abre el php?> 
     <section>
+        <br>
         <?php 
             echo "La " . $operacion . " de ". $numero1 . " y " . $numero2 . " es igual a " . $resultado; //El punto sirve para concatenar
         ?>
