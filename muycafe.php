@@ -1,4 +1,5 @@
 <?php
+session_start();
 $arrBebidasCalientes = array(
     "0001" => array(
         "sku"=> "0001",
@@ -51,11 +52,23 @@ function generarComboBox($arrayToProcess, $valueField, $textField, $selectedValu
 
 $bebidasSelectedSku = "002";
 $reposteriaSelectedSku = 'R0003';
+
+$orden = array();
+
 if(isset($_POST["btnOrdenar"])){
     $bebidasSelectedSku=$_POST["bebidasSelectedSku"];
-    $reposteriaSelectedSku = $_POST["reposteriaSelectedSku"];
+    $reposteriaSelectedSku=$_POST["reposteriaSelectedSku"];
+    $orden["bebida"] = $arrBebidasCalientes[$bebidasSelectedSku];
+    $orden["reposteria"] = $arrReposteria[$reposteriaSelectedSku];
+    $orden["total"] = $orden["bebida"]["precio"] + $orden["reposteria"]["precio"];
+    $ordenes = array();
+    if(isset($_SESSION["ordenes"])){
+        $ordenes = $_SESSION["ordenes"]
+    }
+    $ordenes[] = $orden;
+    $_SESSION["ordenes"] = $ordenes;
 }
-
+//que es dpr para la union europea y que es la ley sapo en estados unidos
 ?>
 
 <!DOCTYPE html>
